@@ -18,7 +18,7 @@ export class CacheController {
     try {
       FileReaderUtil.clearFile();
 
-      cacheManagerUtil.clear();
+      cacheManagerUtil.clearCache();
 
       return res.status(200).json({ message: 'Cache cleared!' });
     } catch (error) {

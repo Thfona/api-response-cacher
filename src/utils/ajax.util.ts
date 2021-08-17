@@ -12,7 +12,7 @@ export class AjaxUtil {
     const key = this.generateCacheKey(options);
 
     if (!blacklist.includes(key)) {
-      const response = await cacheManagerUtil.get(key);
+      const response = cacheManagerUtil.getCache(key);
 
       if (response) {
         return response;
@@ -22,7 +22,7 @@ export class AjaxUtil {
     try {
       const response = await axios(options);
 
-      await cacheManagerUtil.set(key, { status: response.status, data: response.data });
+      cacheManagerUtil.setCache(key, { status: response.status, data: response.data });
 
       return { status: response.status, data: response.data };
     } catch (error) {

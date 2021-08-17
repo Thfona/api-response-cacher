@@ -2,33 +2,31 @@ import { FileReaderUtil } from './file-reader.util';
 
 class CacheManagerUtil {
   private cache: any = {};
-  private isValid = false;
+  private isCacheValid = false;
 
-  private async updateCache(): Promise<void> {
+  private updateCache(): void {
     this.cache = JSON.parse(FileReaderUtil.read());
 
-    this.isValid = true;
+    this.isCacheValid = true;
   }
 
-  public async get(key: string): Promise<{ status: number; data: Record<string, unknown> }> {
-    if (!this.isValid) {
-      await this.updateCache();
+  public getCache(key: string): { status: number; data: Record<string, unknown> } {
+    if (!this.isCacheValid) {
+      this.updateCache();
     }
 
-    return Promise.resolve(this.cache[key]);
+    return this.cache[key];
   }
 
-  public async set(key: string, value: Record<string, unknown>): Promise<void> {
+  public setCache(key: string, value: Record<string, unknown>): void {
     this.cache[key] = value;
 
     FileReaderUtil.write(JSON.stringify(this.cache, null, 4));
 
-    this.isValid = false;
-
-    return Promise.resolve();
+    this.isCacheValid = false;
   }
 
-  public clear(): void {
+  public clearCache(): void {
     this.cache = {};
   }
 }
