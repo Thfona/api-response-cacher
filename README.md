@@ -19,7 +19,7 @@ curl --location --request POST 'http://localhost:3100/cache' \
 }'
 ```
 
-Clear the local cache file:
+Clear local cache:
 
 ```bash
 curl --location --request POST 'http://localhost:3100/clear-cache'

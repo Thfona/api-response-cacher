@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AjaxUtil } from '../utils/ajax.util';
 import { FileReaderUtil } from '../utils/file-reader.util';
+import { cacheManagerUtil } from '../utils/cache-manager.util';
 
 export class CacheController {
   public static async index(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
@@ -16,6 +17,8 @@ export class CacheController {
   public static async clear(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
     try {
       FileReaderUtil.clearFile();
+
+      cacheManagerUtil.clear();
 
       return res.status(200).json({ message: 'Cache cleared!' });
     } catch (error) {

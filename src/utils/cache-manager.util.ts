@@ -27,6 +27,10 @@ class CacheManagerUtil {
 
     return Promise.resolve();
   }
+
+  public clear(): void {
+    this.cache = {};
+  }
 }
 
 export const cacheManagerUtil = new CacheManagerUtil();
