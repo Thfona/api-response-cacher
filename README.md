@@ -32,9 +32,6 @@ curl --location --request POST 'http://localhost:3100/clear-cache'
 $ npm install
 
 # Start application in development mode
-$ npm run dev
-
-# Start application in production mode
 $ npm start
 
 # Linting
