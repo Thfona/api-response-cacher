@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { RequestResultInterface } from '../interfaces/request-result.interface';
 import { cacheManagerUtil } from './cache-manager.util';
-import { blacklist } from '../constants/blacklist.constant';
+import { blocklist } from '../constants/blocklist.constant';
 
 export class AjaxUtil {
   private static generateCacheKey(options: AxiosRequestConfig): string {
@@ -11,7 +11,7 @@ export class AjaxUtil {
   private static async sendWithCache(options: AxiosRequestConfig): Promise<RequestResultInterface> {
     const key = this.generateCacheKey(options);
 
-    if (!blacklist.includes(key)) {
+    if (!blocklist.includes(key)) {
       const response = cacheManagerUtil.getCache(key);
 
       if (response) {
@@ -26,7 +26,11 @@ export class AjaxUtil {
 
       return { status: response.status, data: response.data };
     } catch (error) {
-      return { status: error.response.status, data: error.response.data };
+      return {
+        status: error && error.response && error.response.status,
+        data: error && error.response && error.response.data,
+        error: error
+      };
     }
   }
 
