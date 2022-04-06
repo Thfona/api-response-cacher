@@ -1,4 +1,7 @@
 {
+  "execMap": {
+    "ts": "node ./node_modules/ts-node/dist/bin.js"
+  },
   "env": {
     "NODE_ENV": "development",
     "PORT": "3100"
