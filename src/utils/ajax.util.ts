@@ -25,7 +25,7 @@ export class AjaxUtil {
       cacheManagerUtil.setCache(key, { status: response.status, data: response.data });
 
       return { status: response.status, data: response.data };
-    } catch (error) {
+    } catch (error: any) {
       return {
         status: error && error.response && error.response.status,
         data: error && error.response && error.response.data,
